@@ -1,5 +1,5 @@
 /**
- * Created by yangmeng on 11/18/16.
+ * Created by yangmeng on 11/28/16.
  */
 
 import java.io.IOException;
@@ -12,20 +12,33 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.json.*;
 
 
-public class JsonProfileMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
+public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration conf = context.getConfiguration();
 
-        List<Long> orgsList = new Long[];
-
+        HashSet<Long> orgsList = new HashSet<Long>();
         HashSet<String> stopWords = new HashSet<String>();
+
+        for (String line : Files.readAllLines(Paths.get("orgsRanking.txt"))) {
+            String[] orgInfo = line.split(":");
+            orgsList.add(Long.parseLong(orgInfo[1]));
+        }
 
         for (String word : Files.readAllLines(Paths.get("stopwords.txt"))) {
             stopWords.add(line);
         }
 
-        emotionDict = 
+        """
+        emotionDict: {
+            keyword : 0  //Angry
+                    : 1  //Sad
+                    : 2  //Happy
+                    : 3  //Ecstatic
+                    : 4  //Anxious
+        }
+        """
+        HashMap<String, Integer> emotionDict = ; 
 
     }
 
@@ -34,25 +47,48 @@ public class JsonProfileMapper extends Mapper<LongWritable, Text, LongWritable, 
         throws IOException, InterruptedException, JSONException{
 
         JSONObject jsonobj = new JSONObject(value);
-        Long eventId = jsonobj.getLong("id");
         String type = jsonobj.getString("type");
 
-        JSONObject repo = jsonobj.getJSONObject("repo");
+        if (!jsonobj.has("org")) {
+            return;
+        } 
+
+        JSONObject org = jsonobj.getJSONObject("org");
+        if (!orgList.contains(org.getLong("id"))) {
+            return;
+        }
+
         JSONObject payload = jsonobj.getJSONObject("payload");
 
-        Long repoId = repo.getLong("id");
-        String repoName = repo.getString("name");
+        if (type.equals("commit_comment")) {
+            JSONObject comment = payload.getJSONObject("comment");
+            String body = comment.getString("body");
+            emotionClassifation(body);
 
-        if (jsonobj.has("org")
-                && (type.equals("commit_comment")
-                    || type.equals("issue_comment")
-                    || type.equals("issues")
-                    || type.equals("pull_request")
-                    || type.equals("pull_request_review")
-                    || type.equals("pull_request_review_comment")
-                    || type.equals("push") )) {
+        } else if (type.equals("issue_comment")) {
 
-            context.write(new LongWritable(eventId), value);
+        } else if(type.equals("issues")) {
+
+        } else if (type.equals("pull_request")) {
+
+        } else if (type.equals("pull_request_review")) {
+
+        } else if (type.equals("pull_request_review_comment")) {
+
+        } else if (type.equals("push") ) {
+            
+        } 
+
+        context.write(new LongWritable(orgId), value);
+    }
+
+    private List<Double> emotionClassifation(Sting text) {
+        ArrayList<Double> score = new ArrayList<>();
+        String[] words = text.split(" ");
+        for (String word : words) {
+            if (emotionDict.contains(word)) {
+                score.set(emotionDict.get(word), 1);
+            }
         }
     }
 }
