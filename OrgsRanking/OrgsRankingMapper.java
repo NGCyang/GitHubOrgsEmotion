@@ -1,5 +1,5 @@
 /**
- * Created by yangmeng on 11/8/16.
+ * Created by yangmeng on 11/18/16.
  */
 
 import java.io.IOException;
@@ -30,5 +30,4 @@ public class JsonProfileMapper extends Mapper<LongWritable, Text, Text, IntWrita
             context.write(new Text(orgId + ":" + orgName), new IntWritable(1));
         }
     }
-
 }
