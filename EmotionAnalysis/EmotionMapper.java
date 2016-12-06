@@ -168,9 +168,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
         String outputString = new String();
         for (int i = 0; i < 5; ++i) {
             outputString += 1.0 * cntArr[i] / total;
-            outputString +=", ";
+            outputString +=",";
         }
-        outputString = outputString.substring(0, outputString.length() - 2);
+        outputString = outputString.substring(0, outputString.length() - 1);
         context.write(new LongWritable(orgId), new Text(outputString));
     }
 
