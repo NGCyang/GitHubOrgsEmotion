@@ -1,17 +1,14 @@
 /**
- * Created by yangmeng on 11/28/16.
+ * Created by yangmeng on 12/5/16.
  */
 import java.io.IOException;
-import org.apache.hadoop.io.LongWritable;
+import java.util.*;
+import java.util.PriorityQueue;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class EmotionReducer extends  Reducer<LongWritable, Text, LongWritable, Text> {
+public class EmotionReducer extends  Reducer<Text, IntWritable, Text, IntWritable> {
     @Override
-    public void reduce(LongWritable key, Iterable<Text> values, Context context)
-            throws IOException, InterruptedException {
-        for (Text value : values) {
-            context.write(key, new Text(value));
-        }
-    }
+
 }
