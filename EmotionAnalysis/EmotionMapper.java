@@ -17,7 +17,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import org.json.*;
 
 /**
  *output:
@@ -26,7 +25,7 @@ import org.json.*;
  *
  **/
 
- public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
+ public class EmotionMapper extends Mapper<LongWritable, Text, Text, Text> {
     private HashSet<Long> orgSet;
     private HashSet<String> stopWordSet;
     private HashMap<String, String> moodMap;
@@ -107,47 +106,28 @@ import org.json.*;
 
 
     @Override
-    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException, JSONException{
+    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
         //1. get organ ID
-        JSONObject jsonobj = new JSONObject(value.toString());
-        String type = jsonobj.getString("type");
+        String line =value.toString();
+        String[] splitline = line.split(":");
 
-        //exit directly
-        if (!jsonobj.has("org")) {
-            return;
-        }
-        JSONObject org = jsonobj.getJSONObject("org");
-        if (!orgSet.contains(org.getLong("id"))) {
+        Long orgId = Long.parseLong(splitline[0]);
+
+        if (!orgSet.contains(orgId) || splitline.length < 1) {
             return;
         }
 
-        Long orgId = org.getLong("id");
-        JSONObject payload = jsonobj.getJSONObject("payload");
-
-        //2. get String body
-        String sentence = "";
-        if (type.equals("CommitCommentEvent")) {
-            JSONObject comment = payload.getJSONObject("comment");
-            sentence = comment.getString("body");
-        } else if (type.equals("IssueCommentEvent")) {
-            JSONObject comment = payload.getJSONObject("comment");
-            sentence = comment.getString("body");
-        } else if(type.equals("IssuesEvent")) {
-            JSONObject issue = payload.getJSONObject("issue");
-            sentence = issue.getString("body");
-        } else if (type.equals("PullRequestEven")) {
-            JSONObject pull = payload.getJSONObject("pull_request");
-            sentence = pull.getString("body");
-        } else if (type.equals("pull_request_review")) {
-            JSONObject pull = payload.getJSONObject("pull_request");
-            sentence = pull.getString("body");
-        } else if (type.equals("PullRequestReviewCommentEvent")) {
-            JSONObject comment = payload.getJSONObject("comment");
-            sentence = comment.getString("body");
+        String orgName = splitline[1];
+        StringBuilder textbuilder = new StringBuilder();
+        for (int i = 2; i < splitline.length; i++) {
+            textbuilder.append(splitline[i]);
         }
+
+        String text = textbuilder.toString();
+
 
         //3. count length
-        String[] cleaned_strArr = sentence.split("[^a-zA-Z1-9']+");
+        String[] cleaned_strArr = text.split("[^a-zA-Z1-9']+");
         int total = cleaned_strArr.length;
 
         /*4. filter & count emotinal words(update array)
@@ -191,7 +171,6 @@ import org.json.*;
             outputString +=",";
         }
         outputString = outputString.substring(0, outputString.length() - 1);
-        context.write(new LongWritable(orgId), new Text(outputString));
+        context.write(new Text(orgId + ":" + orgName), new Text(outputString));
     }
-
 }

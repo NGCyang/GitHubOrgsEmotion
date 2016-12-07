@@ -2,16 +2,13 @@
  * Created by yangmeng on 12/5/16.
  */
 import java.io.IOException;
-import java.util.*;
-import java.util.PriorityQueue;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class EmotionReducer extends  Reducer<LongWritable, Text, LongWritable, Text> {
+public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
     @Override
-    public void reduce(LongWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         double[] mood_sum_arr = new double[5];
         for (Text value : values) {
             String[] vals = value.toString().split(",");
