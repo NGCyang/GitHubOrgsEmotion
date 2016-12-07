@@ -1,0 +1,31 @@
+988857:LiquidSmooth:
+9888801:bitsandco:
+9897562:KnowSheet:
+9897562:KnowSheet:
+9900864:yCanta:
+9919:github:    i think rescuing and reporting a failure is
+9919:github:
+9919:github:     this shaves about minute off each test run from to this seems like a good direction to go it smile
+9919:github:    looks good thanks deadfoxygrandpa
+9919:github:
+9919:github:
+9919:github:    sure should be nice when it s live
+9919:github:    thanks for the quick merge
+9919:github:
+9919:github:     this looks great to me
+9919:github:     dx mon do we have any example files that would match these per this comment a few weeks ago i d love some example files here that this new regex addresses dx mon do you have any we could use
+9919:github:    no problem btw it will be another couple of weeks before these changes are live as we ll need to cut a new gem
+9919:github:
+9919:github:
+9919:github:    thanks floscher and happy new year as per the contribution guidelines https github com github linguist blob master contributing md could you link to some examples of this language in use on github
+9932802:rosindex:
+993323:yiisoft:
+993323:yiisoft: so chaning to display none would solve your issue right i think this is the best way to keep bc
+993323:yiisoft: for reference http stackoverflow com questions why is an input tag not allowed directly within a form tag
+993323:yiisoft: looks like a bug as it seems to be working for front view index but not for front view index
+993323:yiisoft:
+993323:yiisoft: i m not sure what the real problem here is but to solve the problem with the link mouse icon you can set a css rule for that to change the icon css a cursor pointer
+993323:yiisoft:
+993323:yiisoft: thanks
+993323:yiisoft:
+993323:yiisoft:
