@@ -9,7 +9,7 @@ public class Sort {
 
     public static void main(String[] args) throws IOException {
         //1. file read
-        BufferedReader br = new BufferedReader(new FileReader("地址"));
+        BufferedReader br = new BufferedReader(new FileReader("/Users/yangmeng/BigDataProgramming/GitHubOrgsEmotion/EmotionAnalysis/orgsrank.txt"));
 
         List<String> text_content_list = new ArrayList<>();
         while (br.readLine() != null) {
@@ -22,9 +22,15 @@ public class Sort {
         Collections.sort(text_content_list, new Comparator<String>() {
             @Override
             public int compare(String str1, String str2) {
-                String cnt1 = str1.split("\t")[1].trim();
-                String cnt2 = str2.split("\t")[1].trim();
-                return cnt1.compareTo(cnt2);
+                Long cnt1 = Long.parseLong(str1.split(" +")[1].trim());
+                Long cnt2 = Long.parseLong(str2.split(" +")[1].trim());
+                if (-cnt1 + cnt2 < 0) {
+                    return -1;
+                } else if (-cnt1 + cnt2 == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
             }
         });
 
