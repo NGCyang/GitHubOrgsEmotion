@@ -5,7 +5,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -26,11 +25,11 @@ public class EmotionTool extends Configured implements Tool {
         Configuration conf = new Configuration();
         conf.set("EmotionDictPath", args[2]);
         conf.set("OrgsRankingPath", args[3]);
-
+        conf.set("StopWordsPath", args[4]);
 
         // Create job
-        //Job job = new Job(conf, "EmotionAnalysis");
-        Job job = Job.getInstance();
+        Job job = new Job(conf, "EmotionAnalysis");
+        //Job job = Job.getInstance();
         job.setJarByClass(EmotionTool.class);
         //job.setNumReduceTasks(1);
 

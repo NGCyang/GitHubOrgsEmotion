@@ -8,8 +8,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 import org.apache.hadoop.conf.Configuration;
@@ -17,9 +15,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Mapper;
-
 
 import org.json.*;
 
@@ -30,7 +26,7 @@ import org.json.*;
  *
  **/
 
-public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
+ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
     private HashSet<Long> orgSet;
     private HashSet<String> stopWordSet;
     private HashMap<String, String> moodMap;
@@ -45,15 +41,14 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
 
         FileSystem fs = FileSystem.get(conf);
 
-
         orgSet = new HashSet<Long>();
         stopWordSet = new HashSet<String>();
         moodMap = new HashMap<>();
 
         /**
          *text:
-         *orgName: orgID    \t 10000
-         *<String>   <Long>
+         *orgID:orgName    \t 10000
+         *<Long>  <String>
          **/
 
         //1.
@@ -61,14 +56,16 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
         String line1 = null;
         while ((line1 = br1.readLine()) != null) {
             String[] orgInfo = line1.trim().split(" +");
-            orgSet.add(Long.parseLong(orgInfo[0].trim().split(":")[1].trim()));
+            orgSet.add(Long.parseLong(orgInfo[0].trim().split(":")[0].trim()));
         }
+        br1.close();
         //2.
         BufferedReader br2 = new BufferedReader(new InputStreamReader(fs.open(stopWordsPath)));
         String line2 = null;
         while ((line2 = br2.readLine()) != null) {
             stopWordSet.add(line2.trim());
         }
+        br2.close();
         //3.
         BufferedReader br3 = new BufferedReader((new InputStreamReader((fs.open(emtiondictPath)))));
         String line3 = null;
@@ -105,6 +102,7 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
                 continue;
             }
         }
+        br3.close();
     }
 
 
