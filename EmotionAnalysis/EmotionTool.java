@@ -1,6 +1,7 @@
 /**
  * Created by yangmeng on 12/5/16.
  */
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.fs.Path;
@@ -31,16 +32,16 @@ public class EmotionTool extends Configured implements Tool {
         //Job job = new Job(conf, "EmotionAnalysis");
         Job job = Job.getInstance();
         job.setJarByClass(EmotionTool.class);
-        job.setNumReduceTasks(1);
+        //job.setNumReduceTasks(1);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        job.setMapperClass(OrgsRankingMapper.class);
-        job.setReducerClass(OrgsRankingReducer.class);
+        job.setMapperClass(EmotionMapper.class);
+        job.setReducerClass(EmotionReducer.class);
 
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputKeyClass(LongWritable.class);
+        job.setOutputValueClass(Text.class);
 
         return job.waitForCompletion(true) ? 0 : 1;
     }

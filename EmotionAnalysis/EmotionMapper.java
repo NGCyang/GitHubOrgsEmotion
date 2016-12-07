@@ -7,6 +7,7 @@
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -37,33 +38,42 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration conf = context.getConfiguration();
-        String emtiondictPath = conf.get("EmotionDictPath");
-        String orgsRankingPath = conf.get("OrgsRankingPath");
-        
+
+        Path emtiondictPath = new Path(conf.get("EmotionDictPath"));
+        Path orgsRankingPath = new Path(conf.get("OrgsRankingPath"));
+        Path stopWordsPath = new Path(conf.get("StopWordsPath"));
+
+        FileSystem fs = FileSystem.get(conf);
+
+
         orgSet = new HashSet<Long>();
         stopWordSet = new HashSet<String>();
         moodMap = new HashMap<>();
 
         /**
          *text:
-         *orgName: orgID
+         *orgName: orgID    \t 10000
          *<String>   <Long>
          **/
+
         //1.
-        Path emotionDictPath = new Path(conf.get("EmotionDictPath"));
-        FileSystem fs = FileSystem.get(conf);
-        BufferedReader = 
-        for (String line : Files.readAllLines(Paths.get("orgsRanking.txt"))) {
-            String[] orgInfo = line.split(":");
-            orgSet.add(Long.parseLong(orgInfo[1]));
+        BufferedReader br1 = new BufferedReader(new InputStreamReader(fs.open(orgsRankingPath)));
+        String line1 = null;
+        while ((line1 = br1.readLine()) != null) {
+            String[] orgInfo = line1.trim().split(" +");
+            orgSet.add(Long.parseLong(orgInfo[0].trim().split(":")[1].trim()));
         }
         //2.
-        for (String word : Files.readAllLines(Paths.get("stopWordSet.txt"))) {
-            stopWordSet.add(word);
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(fs.open(stopWordsPath)));
+        String line2 = null;
+        while ((line2 = br2.readLine()) != null) {
+            stopWordSet.add(line2.trim());
         }
         //3.
-        for (String line : Files.readAllLines(Paths.get("emotionDict"))) {
-            String[] eachLine = line.split(":");
+        BufferedReader br3 = new BufferedReader((new InputStreamReader((fs.open(emtiondictPath)))));
+        String line3 = null;
+        while ((line3 = br3.readLine()) != null) {
+            String[] eachLine = line3.split(":");
             if (eachLine[0].equals("Angry")) {
                 for (String word : eachLine[1].trim().split(" ")) {
                     moodMap.put(word.trim(), "angry");
