@@ -8,6 +8,16 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
     @Override
+
+    /*
+    input:
+    K                       V
+    "ID:orgName"         "0.1,0.2,0.3,0.4,0.5"; "0.0,0.2,0.0,0.4,0.0"; ..
+
+    output:
+    K                       V
+    "ID:orgName"         "0.1,0.4,0.3,0.8,0.5"
+     */
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
         double[] mood_sum_arr = new double[5];
         for (Text value : values) {

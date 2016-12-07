@@ -70,32 +70,32 @@ import org.apache.hadoop.mapreduce.Mapper;
         String line3 = null;
         while ((line3 = br3.readLine()) != null) {
             String[] eachLine = line3.split(":");
-            if (eachLine[0].equals("Angry")) {
-                for (String word : eachLine[1].trim().split(" ")) {
+            if (eachLine[0].trim().equals("Angry")) {
+                for (String word : eachLine[1].trim().split(",")) {
                     moodMap.put(word.trim(), "angry");
                 }
                 continue;
             }
-            if (eachLine[0].equals("Sad")) {
-                for (String word : eachLine[1].trim().split(" ")) {
+            if (eachLine[0].trim().equals("Sad")) {
+                for (String word : eachLine[1].trim().split(",")) {
                     moodMap.put(word.trim(), "sad");
                 }
                 continue;
             }
-            if (eachLine[0].equals("Happy")) {
-                for (String word : eachLine[1].trim().split(" ")) {
+            if (eachLine[0].trim().equals("Happy")) {
+                for (String word : eachLine[1].trim().split(",")) {
                     moodMap.put(word.trim(), "happy");
                 }
                 continue;
             }
-            if (eachLine[0].equals("Ecstatic")) {
-                for (String word : eachLine[1].trim().split(" ")) {
+            if (eachLine[0].trim().equals("Ecstatic")) {
+                for (String word : eachLine[1].trim().split(",")) {
                     moodMap.put(word.trim(), "ecstatic");
                 }
                 continue;
             }
-            if (eachLine[0].equals("Anxious")) {
-                for (String word : eachLine[1].trim().split(" ")) {
+            if (eachLine[0].trim().equals("Anxious")) {
+                for (String word : eachLine[1].trim().split(",")) {
                     moodMap.put(word.trim(), "anxious");
                 }
                 continue;
@@ -111,23 +111,26 @@ import org.apache.hadoop.mapreduce.Mapper;
         String line =value.toString();
         String[] splitline = line.split(":");
 
-        Long orgId = Long.parseLong(splitline[0]);
+        Long orgId = Long.parseLong(splitline[0].trim());
 
         if (!orgSet.contains(orgId) || splitline.length < 1) {
             return;
         }
 
-        String orgName = splitline[1];
-        StringBuilder textbuilder = new StringBuilder();
-        for (int i = 2; i < splitline.length; i++) {
-            textbuilder.append(splitline[i]);
+        String orgName = splitline[1].trim();
+//        StringBuilder textbuilder = new StringBuilder();
+//        for (int i = 2; i < splitline.length; i++) {
+//            textbuilder.append(splitline[i]);
+//        }
+//
+//        String text = textbuilder.toString();
+        if (splitline.length < 3) {
+            return;
         }
-
-        String text = textbuilder.toString();
-
+        String text = splitline[2].trim();
 
         //3. count length
-        String[] cleaned_strArr = text.split("[^a-zA-Z1-9']+");
+        String[] cleaned_strArr = text.split(" +");
         int total = cleaned_strArr.length;
 
         /*4. filter & count emotinal words(update array)
@@ -172,5 +175,10 @@ import org.apache.hadoop.mapreduce.Mapper;
         }
         outputString = outputString.substring(0, outputString.length() - 1);
         context.write(new Text(orgId + ":" + orgName), new Text(outputString));
+
+        /*
+        K                       V
+        "ID:orgName"         0.1,0.2,0.3,0.4,0.5
+         */
     }
 }
