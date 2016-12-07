@@ -22,10 +22,14 @@ public class EmotionTool extends Configured implements Tool {
     public int run(String[] args) throws Exception {
 
         // When implementing tool
-        Configuration conf = this.getConf();
+        Configuration conf = new Configuration();
+        conf.set("EmotionDictPath", args[2]);
+        conf.set("OrgsRankingPath", args[3]);
+
 
         // Create job
-        Job job = new Job(conf, "EmotionAnalysis");
+        //Job job = new Job(conf, "EmotionAnalysis");
+        Job job = Job.getInstance();
         job.setJarByClass(EmotionTool.class);
         job.setNumReduceTasks(1);
 

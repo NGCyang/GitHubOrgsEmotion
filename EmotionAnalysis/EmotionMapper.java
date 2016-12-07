@@ -5,12 +5,15 @@
  * Created by Kaiwen on 12/4/16.
  */
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
@@ -34,7 +37,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration conf = context.getConfiguration();
-
+        String emtiondictPath = conf.get("EmotionDictPath");
+        String orgsRankingPath = conf.get("OrgsRankingPath");
+        
         orgSet = new HashSet<Long>();
         stopWordSet = new HashSet<String>();
         moodMap = new HashMap<>();
@@ -45,6 +50,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
          *<String>   <Long>
          **/
         //1.
+        Path emotionDictPath = new Path(conf.get("EmotionDictPath"));
+        FileSystem fs = FileSystem.get(conf);
+        BufferedReader = 
         for (String line : Files.readAllLines(Paths.get("orgsRanking.txt"))) {
             String[] orgInfo = line.split(":");
             orgSet.add(Long.parseLong(orgInfo[1]));
@@ -58,31 +66,31 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
             String[] eachLine = line.split(":");
             if (eachLine[0].equals("Angry")) {
                 for (String word : eachLine[1].trim().split(" ")) {
-                    moodMap.putIfAbsent(word.trim(), "angry");
+                    moodMap.put(word.trim(), "angry");
                 }
                 continue;
             }
             if (eachLine[0].equals("Sad")) {
                 for (String word : eachLine[1].trim().split(" ")) {
-                    moodMap.putIfAbsent(word.trim(), "sad");
+                    moodMap.put(word.trim(), "sad");
                 }
                 continue;
             }
             if (eachLine[0].equals("Happy")) {
                 for (String word : eachLine[1].trim().split(" ")) {
-                    moodMap.putIfAbsent(word.trim(), "happy");
+                    moodMap.put(word.trim(), "happy");
                 }
                 continue;
             }
             if (eachLine[0].equals("Ecstatic")) {
                 for (String word : eachLine[1].trim().split(" ")) {
-                    moodMap.putIfAbsent(word.trim(), "ecstatic");
+                    moodMap.put(word.trim(), "ecstatic");
                 }
                 continue;
             }
             if (eachLine[0].equals("Anxious")) {
                 for (String word : eachLine[1].trim().split(" ")) {
-                    moodMap.putIfAbsent(word.trim(), "anxious");
+                    moodMap.put(word.trim(), "anxious");
                 }
                 continue;
             }
@@ -179,5 +187,3 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
     }
 
 }
-
-
