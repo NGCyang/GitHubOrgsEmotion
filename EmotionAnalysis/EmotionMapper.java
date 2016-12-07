@@ -27,14 +27,17 @@ import org.json.*;
  **/
 
 public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
+    private HashSet<Long> orgSet;
+    private HashSet<String> stopWordSet;
+    private HashMap<String, String> moodMap;
+
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration conf = context.getConfiguration();
 
-        HashSet<Long> orgSet = new HashSet<Long>();
-        HashSet<String> stopWordSet = new HashSet<String>();
-
-        HashMap<String, String> moodMap = new HashMap<>();
+        orgSet = new HashSet<Long>();
+        stopWordSet = new HashSet<String>();
+        moodMap = new HashMap<>();
 
         /**
          *text:
@@ -102,6 +105,7 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
             return;
         }
 
+        Long orgId = org.getLong("id");
         JSONObject payload = jsonobj.getJSONObject("payload");
 
         //2. get String body
