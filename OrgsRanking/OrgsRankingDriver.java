@@ -1,5 +1,5 @@
 /**
- * Created by yangmeng on 11/19/16.
+ * Created by yangmeng on 12/4/16.
  */
 
 import org.apache.hadoop.fs.Path;
@@ -10,10 +10,11 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-public class OrgsRankingDirver {
+public class OrgsRankingDriver {
     public static void main(String[] args) throws Exception {
-        Job job = new Job();
-        job.setJarByClass(OrgsRankingDirver.class);
+        //Job job = new Job();
+        Job job = Job.getInstance();
+        job.setJarByClass(OrgsRankingDriver.class);
         job.setJobName("Ranking");
 
         FileInputFormat.addInputPath(job, new Path(args[0]));

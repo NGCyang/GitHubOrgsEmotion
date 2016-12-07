@@ -20,10 +20,10 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.json.*;
 
 /**
- output:
- K          V
- orgID      list<Integer>(mood1%, mood2%， mood3%, mood4%, mood5%)
-
+ *output:
+ *K          V
+ *orgID      list<Integer>(mood1%, mood2%， mood3%, mood4%, mood5%)
+ *
  **/
 
 public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
@@ -37,9 +37,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
         HashMap<String, String> moodMap = new HashMap<>();
 
         /**
-         text:
-         orgName: orgID
-         <String>   <Long>
+         *text:
+         *orgName: orgID
+         *<String>   <Long>
          **/
         //1.
         for (String line : Files.readAllLines(Paths.get("orgsRanking.txt"))) {
