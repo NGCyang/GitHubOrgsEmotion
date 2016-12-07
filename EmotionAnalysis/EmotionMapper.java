@@ -5,12 +5,15 @@
  * Created by Kaiwen on 12/4/16.
  */
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
@@ -34,7 +37,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration conf = context.getConfiguration();
-
+        String emtiondictPath = conf.get("EmotionDictPath");
+        String orgsRankingPath = conf.get("OrgsRankingPath");
+        
         orgSet = new HashSet<Long>();
         stopWordSet = new HashSet<String>();
         moodMap = new HashMap<>();
@@ -45,6 +50,9 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
          *<String>   <Long>
          **/
         //1.
+        Path emotionDictPath = new Path(conf.get("EmotionDictPath"));
+        FileSystem fs = FileSystem.get(conf);
+        BufferedReader = 
         for (String line : Files.readAllLines(Paths.get("orgsRanking.txt"))) {
             String[] orgInfo = line.split(":");
             orgSet.add(Long.parseLong(orgInfo[1]));
@@ -179,5 +187,3 @@ public class EmotionMapper extends Mapper<LongWritable, Text, LongWritable, Text
     }
 
 }
-
-
