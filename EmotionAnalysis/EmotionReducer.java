@@ -23,13 +23,13 @@ public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
         for (Text value : values) {
             String[] vals = value.toString().split(",");
             for (int i = 0; i < 5; ++i) {
-                mood_sum_arr[i] = Double.parseDouble(vals[i].trim());
+                mood_sum_arr[i] += Double.parseDouble(vals[i].trim());
             }
         }
         String str_result = new String();
         for (double each_mood_val : mood_sum_arr) {
-            str_result = each_mood_val + ",";
+            str_result += each_mood_val + ",";
         }
-        context.write(key, new Text(str_result));
+        context.write(key, new Text(str_result.substring(0, str_result.length() - 1)));
     }
 }
