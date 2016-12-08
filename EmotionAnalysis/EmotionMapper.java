@@ -174,9 +174,6 @@ import org.apache.hadoop.mapreduce.Mapper;
             outputString +=",";
         }
         outputString = outputString.substring(0, outputString.length() - 1);
-
-        System.out.println(outputString);
-
         context.write(new Text(orgId + ":" + orgName), new Text(outputString));
 
         /*
