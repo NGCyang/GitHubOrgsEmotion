@@ -35,7 +35,7 @@ public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
         }
 
         for (int i = 0; i < 5; ++i) {
-            mood_sum_arr[i] = mood_sum_arr[i] / cnt_comments;
+            mood_sum_arr[i] = mood_sum_arr[i] / cnt_comments * 100;
         }
 
         String str_result = new String();
