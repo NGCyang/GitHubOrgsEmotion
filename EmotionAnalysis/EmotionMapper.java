@@ -46,8 +46,11 @@ import org.apache.hadoop.mapreduce.Mapper;
 
         /**
          *text:
-         *orgID:orgName    \t 10000
-         *<Long>  <String>
+         *orgID:orgName:    \t comment String
+         *<Long>  <String>      <String>
+         *eg.
+         *9900864:yCanta:
+         *9919:github:    i think rescuing and reporting a failure is
          **/
 
         //1.
@@ -113,17 +116,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 
         Long orgId = Long.parseLong(splitline[0].trim());
 
-        if (!orgSet.contains(orgId) || splitline.length < 1) {
+        if (!orgSet.contains(orgId)) {
             return;
         }
 
         String orgName = splitline[1].trim();
-//        StringBuilder textbuilder = new StringBuilder();
-//        for (int i = 2; i < splitline.length; i++) {
-//            textbuilder.append(splitline[i]);
-//        }
-//
-//        String text = textbuilder.toString();
+
         if (splitline.length < 3) {
             return;
         }
@@ -170,12 +168,17 @@ import org.apache.hadoop.mapreduce.Mapper;
 
         String outputString = new String();
         for (int i = 0; i < 5; ++i) {
-            outputString += 1.0 * cntArr[i] / total;
+            if (total != 0) {
+                outputString += 1.0 * cntArr[i] / total;
+            } else {
+                outputString += "0.00";
+            }
             outputString +=",";
         }
         outputString = outputString.substring(0, outputString.length() - 1);
         context.write(new Text(orgId + ":" + orgName), new Text(outputString));
 
+        return;
         /*
         K                       V
         "ID:orgName"         0.1,0.2,0.3,0.4,0.5

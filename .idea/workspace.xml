@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="823604ee-d3c1-4d48-9be6-95bab73a2ba0" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" afterPath="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java" afterPath="$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java" />
     </list>
@@ -24,23 +25,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EmotionMapper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EmotionMapper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="176" column="0" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+            <state relative-caret-position="3097">
+              <caret line="173" column="39" selection-start-line="173" selection-start-column="39" selection-end-line="173" selection-end-column="39" />
               <folding>
-                <element signature="e#0#5921#0" expanded="true" />
+                <element signature="e#0#5932#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmotionReducer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EmotionReducer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state relative-caret-position="641">
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -72,8 +73,8 @@
         <option value="$PROJECT_DIR$/OrgsRanking/Merge_NonMR.java" />
         <option value="$PROJECT_DIR$/OrgsRanking/Sort.java" />
         <option value="$PROJECT_DIR$/EmotionAnalysis/EmotionTool.java" />
-        <option value="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" />
         <option value="$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java" />
+        <option value="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" />
       </list>
     </option>
   </component>
@@ -681,12 +682,12 @@
       <workItem from="1481078006403" duration="1000000" />
       <workItem from="1481146354956" duration="1058000" />
       <workItem from="1481152618357" duration="1137000" />
-      <workItem from="1481154363331" duration="1346000" />
+      <workItem from="1481154363331" duration="2654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15739000" />
+    <option name="totallyTimeSpent" value="17047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -769,7 +770,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -806,7 +807,7 @@
         <state relative-caret-position="665">
           <caret line="47" column="68" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="68" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -857,7 +858,7 @@
         <state relative-caret-position="665">
           <caret line="47" column="68" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="68" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -908,7 +909,7 @@
         <state relative-caret-position="665">
           <caret line="47" column="68" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="68" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -959,7 +960,7 @@
         <state relative-caret-position="209">
           <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1002,7 +1003,7 @@
         <state relative-caret-position="209">
           <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1045,7 +1046,7 @@
         <state relative-caret-position="1292">
           <caret line="85" column="9" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1066,7 +1067,7 @@
         <state relative-caret-position="1292">
           <caret line="85" column="9" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1094,7 +1095,7 @@
         <state relative-caret-position="2945">
           <caret line="172" column="74" selection-start-line="172" selection-start-column="74" selection-end-line="172" selection-end-column="74" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1182,23 +1183,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java">
+    <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="176" column="0" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+        <state relative-caret-position="641">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
           <folding>
-            <element signature="e#0#5921#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java">
+    <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state relative-caret-position="3097">
+          <caret line="173" column="39" selection-start-line="173" selection-start-column="39" selection-end-line="173" selection-end-column="39" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#5932#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -24,15 +24,22 @@ public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
     public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
         double[] mood_sum_arr = new double[5];
+        int cnt_comments = 0;
         for (Text value : values) {
             String[] vals = value.toString().split(",");
             for (int i = 0; i < 5; ++i) {
                 mood_sum_arr[i] += Double.parseDouble(vals[i].trim());
             }
+
+            ++cnt_comments;
+        }
+
+        for (int i = 0; i < 5; ++i) {
+            mood_sum_arr[i] = mood_sum_arr[i] / cnt_comments;
         }
 
         String str_result = new String();
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.HALF_UP);
         for (double each_mood_val : mood_sum_arr) {
             str_result += df.format(each_mood_val) + ", ";
