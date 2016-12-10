@@ -42,8 +42,8 @@ public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.HALF_UP);
         for (double each_mood_val : mood_sum_arr) {
-            str_result += df.format(each_mood_val) + ", ";
+            str_result += df.format(each_mood_val) + ",";
         }
-        context.write(key, new Text(str_result.substring(0, str_result.length() - 2)));
+        context.write(key, new Text(str_result.substring(0, str_result.length() - 1)));
     }
 }
