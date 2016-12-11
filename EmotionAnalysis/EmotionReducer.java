@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
-    @Override
-
+    private int model = 0;
     /*
     input:
     K                       V
@@ -21,20 +21,33 @@ public class EmotionReducer extends  Reducer<Text, Text, Text, Text> {
     K                       V
     "ID:orgName"         "0.1,0.4,0.3,0.8,0.5"
      */
-    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException {
+        Configuration conf = context.getConfiguration();
+        model = Integer.parseInt(conf.get("model"));
+    }
 
-        double[] mood_sum_arr = new double[5];
+    @Override
+    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+        int dimension = 3;
+        if (model == 0) {
+            dimension = 5;
+        } else if (model == 1) {
+            dimension = 3;
+        }
+
+        double[] mood_sum_arr = new double[dimension];
         int cnt_comments = 0;
         for (Text value : values) {
             String[] vals = value.toString().split(",");
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < dimension; ++i) {
                 mood_sum_arr[i] += Double.parseDouble(vals[i].trim());
             }
 
             ++cnt_comments;
         }
 
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < dimension; ++i) {
             mood_sum_arr[i] = mood_sum_arr[i] / cnt_comments * 100;
         }
 

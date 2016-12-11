@@ -23,11 +23,10 @@ public class EmotionTool extends Configured implements Tool {
 
         // When implementing tool
         Configuration conf = new Configuration();
-        conf.set("mapred.textoutputformat.separator", ",");
-
         conf.set("EmotionDictPath", args[2]);
         conf.set("OrgsRankingPath", args[3]);
         conf.set("StopWordsPath", args[4]);
+        conf.set("model", args[5]);
 
         // Create job
         Job job = new Job(conf, "EmotionAnalysis");

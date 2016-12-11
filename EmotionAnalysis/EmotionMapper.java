@@ -25,10 +25,11 @@ import org.apache.hadoop.mapreduce.Mapper;
  *
  **/
 
- public class EmotionMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class EmotionMapper extends Mapper<LongWritable, Text, Text, Text> {
     private HashSet<Long> orgSet;
     private HashSet<String> stopWordSet;
     private HashMap<String, String> moodMap;
+    private int model = 0;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
@@ -37,7 +38,7 @@ import org.apache.hadoop.mapreduce.Mapper;
         Path emtiondictPath = new Path(conf.get("EmotionDictPath"));
         Path orgsRankingPath = new Path(conf.get("OrgsRankingPath"));
         Path stopWordsPath = new Path(conf.get("StopWordsPath"));
-
+        model = Integer.parseInt(conf.get("model"));
         FileSystem fs = FileSystem.get(conf);
 
         orgSet = new HashSet<Long>();
@@ -71,41 +72,61 @@ import org.apache.hadoop.mapreduce.Mapper;
         //3.
         BufferedReader br3 = new BufferedReader((new InputStreamReader((fs.open(emtiondictPath)))));
         String line3 = null;
-        while ((line3 = br3.readLine()) != null) {
-            String[] eachLine = line3.split(":");
-            if (eachLine[0].trim().equals("Angry")) {
-                for (String word : eachLine[1].trim().split(",")) {
-                    moodMap.put(word.trim(), "angry");
+        if (model == 0) {
+            //  Five Basic Emotion Model
+            while ((line3 = br3.readLine()) != null) {
+                String[] eachLine = line3.split(":");
+                if (eachLine[0].trim().equals("Angry")) {
+                    for (String word : eachLine[1].trim().split(",")) {
+                        moodMap.put(word.trim(), "angry");
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if (eachLine[0].trim().equals("Sad")) {
-                for (String word : eachLine[1].trim().split(",")) {
-                    moodMap.put(word.trim(), "sad");
+                if (eachLine[0].trim().equals("Sad")) {
+                    for (String word : eachLine[1].trim().split(",")) {
+                        moodMap.put(word.trim(), "sad");
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if (eachLine[0].trim().equals("Happy")) {
-                for (String word : eachLine[1].trim().split(",")) {
-                    moodMap.put(word.trim(), "happy");
+                if (eachLine[0].trim().equals("Happy")) {
+                    for (String word : eachLine[1].trim().split(",")) {
+                        moodMap.put(word.trim(), "happy");
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if (eachLine[0].trim().equals("Ecstatic")) {
-                for (String word : eachLine[1].trim().split(",")) {
-                    moodMap.put(word.trim(), "ecstatic");
+                if (eachLine[0].trim().equals("Fear")) {
+                    for (String word : eachLine[1].trim().split(",")) {
+                        moodMap.put(word.trim(), "fear");
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if (eachLine[0].trim().equals("Anxious")) {
-                for (String word : eachLine[1].trim().split(",")) {
-                    moodMap.put(word.trim(), "anxious");
+                if (eachLine[0].trim().equals("Anxious")) {
+                    for (String word : eachLine[1].trim().split(",")) {
+                        moodMap.put(word.trim(), "anxious");
+                    }
+                    continue;
                 }
-                continue;
             }
-        }
-        br3.close();
+        } else if (model == 1) {
+            // Subjective polarity model
+            if ((line1 = br3.readLine())!= null) {
+                for (String word : line1.trim().split(",")) {
+                    moodMap.put(word.trim(), "positive");
+                }
+            }
+            if ((line2 = br3.readLine())!= null) {
+                for (String word : line2.trim().split(",")) {
+                    moodMap.put(word.trim(), "negative");
+                }
+            }
+            if ((line3 = br3.readLine())!= null) {
+                for (String word : line3.trim().split(",")) {
+                    moodMap.put(word.trim(), "neutural");
+                }
+            }
     }
+        br3.close();
+}
 
 
     @Override
@@ -135,7 +156,14 @@ import org.apache.hadoop.mapreduce.Mapper;
         arr[0,1,2,3,4]
         angry, sad, happy, ecstatic, anxious
         */
-        int[] cntArr = new int[5];
+        int dimension = 0;
+        if (model == 0) {
+            dimension = 5;
+        } else if (model == 1) {
+            dimension = 3;
+        }
+
+        int[] cntArr = new int[dimension];
         for (String word : cleaned_strArr) {
             String trimmed_word = word.trim();
             if (stopWordSet.contains(trimmed_word)) {
@@ -143,31 +171,50 @@ import org.apache.hadoop.mapreduce.Mapper;
                 continue;
             }
 
-            if (moodMap.containsKey(trimmed_word)) {
-                String whichMood = moodMap.get(trimmed_word);
-                switch(whichMood) {
-                    case "angry":
-                        ++cntArr[0];
-                        break;
-                    case "sad":
-                        ++cntArr[1];
-                        break;
-                    case "happy":
-                        ++cntArr[2];
-                        break;
-                    case "ecstatic":
-                        ++cntArr[3];
-                        break;
-                    case "anxious":
-                        ++cntArr[4];
-                        break;
-                    default:
+            if (model == 0) {
+                if (moodMap.containsKey(trimmed_word)) {
+                    String whichMood = moodMap.get(trimmed_word);
+                    switch(whichMood) {
+                        case "angry":
+                            ++cntArr[0];
+                            break;
+                        case "sad":
+                            ++cntArr[1];
+                            break;
+                        case "happy":
+                            ++cntArr[2];
+                            break;
+                        case "fear":
+                            ++cntArr[3];
+                            break;
+                        case "anxious":
+                            ++cntArr[4];
+                            break;
+                        default:
+                    }
+                }
+            } else if (model == 1) {
+                if (moodMap.containsKey(trimmed_word)) {
+                    String whichMood = moodMap.get(trimmed_word);
+                    switch(whichMood) {
+                        case "positive":
+                            ++cntArr[0];
+                            break;
+                        case "negative":
+                            ++cntArr[1];
+                            break;
+                        case "neutural":
+                            ++cntArr[2];
+                            break;
+                        default:
+                    }
                 }
             }
+
         }
 
         String outputString = new String();
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < dimension; ++i) {
             if (total != 0) {
                 outputString += 1.0 * cntArr[i] / total;
             } else {
