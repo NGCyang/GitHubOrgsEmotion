@@ -5,8 +5,11 @@ This is a hadoop mapreduce project on GitHub Timeline data set for NYU.
 To run this code, you must have Hadoop Environment.
 
 ## Data Source Needed:
-    1. GitHub timeline Data Set
-    2. Emotion Dict : (Provided as )
+    1. GitHub timeline Data Set  
+        GitHub Archieve Project: https://www.githubarchive.org/
+    2. Emotion Dict 
+        Privided by MPQA Opinion Corpus Project
+        Find details at: http://mpqa.cs.pitt.edu/lexicons/effect_lexicon/
     3. Stop words List
 
 ## Libraries required:
