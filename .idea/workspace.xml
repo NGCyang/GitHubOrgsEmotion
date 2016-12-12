@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="823604ee-d3c1-4d48-9be6-95bab73a2ba0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" afterPath="$PROJECT_DIR$/EmotionAnalysis/EmotionMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java" afterPath="$PROJECT_DIR$/EmotionAnalysis/EmotionReducer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EmotionAnalysis/EmotionTool.java" afterPath="$PROJECT_DIR$/EmotionAnalysis/EmotionTool.java" />
-    </list>
+    <list default="true" id="823604ee-d3c1-4d48-9be6-95bab73a2ba0" name="Default" comment="" />
     <ignored path="GitHubOrgsEmotion.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -40,8 +36,8 @@
       <file leaf-file-name="EmotionTool.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -692,12 +688,12 @@
       <workItem from="1481078006403" duration="1000000" />
       <workItem from="1481146354956" duration="1058000" />
       <workItem from="1481152618357" duration="1137000" />
-      <workItem from="1481154363331" duration="4230000" />
+      <workItem from="1481154363331" duration="4589000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18623000" />
+    <option name="totallyTimeSpent" value="18982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1208,8 +1204,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EmotionAnalysis/EmotionTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
           <folding />
         </state>
       </provider>
